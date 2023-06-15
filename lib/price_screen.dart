@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'coin_data.dart';
+
 class PriceScreen extends StatefulWidget {
   @override
   _PriceScreenState createState() => _PriceScreenState();
@@ -8,13 +10,12 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   @override
-  String selectedCurrency="USD";
+  String selectedCurrency = "USD";
 
-  List<DropdownMenuItem> getDropdownItems(){
-    List<DropdownMenuItem<String>> dropDownItems=[];
-    for(int i=0;i<currenciesList.length;i++){
-      String currency= currenciesList[i];
-      var newItem =DropdownMenuItem(
+  List<DropdownMenuItem<String>> getDropdownItems() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String currency in currenciesList) {
+      var newItem = DropdownMenuItem(
         child: Text(currency),
         value: currency,
       );
@@ -59,27 +60,16 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: const EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: DropdownButton<String>(
-              value: selectedCurrency,
-              items: [
-                DropdownMenuItem(
-                  child: Text("USD"),
-                  value: "USD",
-                ),
-                DropdownMenuItem(
-                  child: Text("eur"),
-                  value: "EUR",
-                ),
-                DropdownMenuItem(
-                  child: Text("gbt"),
-                  value: "GBT",
-                ),
-              ],
-              onChanged: (value){
-                 setState(() {
-                   selectedCurrency=value!;
-                 });
+            child: CupertinoPicker(
+              itemExtent: 32.0,
+              onSelectedItemChanged: (selectedIndex) {
+                print(selectedIndex);
               },
+              children: [
+                Text("USD"),
+                Text("EUR"),
+                Text("GBP"),
+              ],
             ),
           ),
         ],
